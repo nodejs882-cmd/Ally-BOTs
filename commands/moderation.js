@@ -1,6 +1,7 @@
-import { SlashCommandBuilder, PermissionsBitField, EmbedBuilder } from 'discord.js';
+const { SlashCommandBuilder, PermissionsBitField, EmbedBuilder } = require('discord.js');
+const config = require('../config');
 
-export default {
+module.exports = {
   data: new SlashCommandBuilder()
     .setName('mod')
     .setDescription('Advanced moderation commands')
@@ -40,8 +41,7 @@ export default {
       return interaction.reply({ content: '❌ You lack the required permissions.', ephemeral: true });
     }
 
-    const logChannelId = process.env.LOG_CHANNEL_ID;
-    const logChannel = interaction.guild.channels.cache.get(logChannelId);
+    const logChannel = interaction.guild.channels.cache.get(config.LOG_CHANNEL_ID);
 
     switch (subcommand) {
       case 'kick': {
